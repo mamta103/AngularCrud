@@ -7,6 +7,7 @@ import { NgForm } from '../../../node_modules/@angular/forms';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
+  department = 2;
   constructor() { }
 
   ngOnInit() {

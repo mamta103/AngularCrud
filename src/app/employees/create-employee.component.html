@@ -1,24 +1,78 @@
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <form #EmployeeForm="ngForm" (ngSubmit)="saveEmployee(EmployeeForm)">
-<div class="panel panel-primary">
-  <div class="panel-heading">
-   <h3 class="panel-title">Create Employee</h3>
-  </div>
-  <div class="panel-body">
-  <div class="form-group">
-    <label for="fullName">FullName</label>
-    <input  type="text" id="fullName" name="FullName"  [(ngModel)]="FullName" class="form-control">
-  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create Employee</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="fullName">FullName</label>
+        <input type="text" id="fullName" name="FullName" [(ngModel)]="FullName" class="form-control" placeholder="Enter your Name">
+      </div>
 
-  <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" id="email" class="form-control" [(ngModel)]="Email" name="Email">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" class="form-control" [(ngModel)]="Email" name="Email"
+          placeholder="Enter your Email ID">
+      </div>
+
+      <div class="form-group">
+        <label>Contact Prefernce</label>
+        <div class="form-control">
+          <div class="radio-inline">
+            <input type="radio" value="email" name="contact" [(ngModel)]="contact">
+            <label>Email</label>
+          </div>
+          <div class="radio-inline">
+            <input type="radio" value="phonenumber" name="contact" [(ngModel)]="contact">
+            <label>Phone Number</label>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group ">
+        <label for="pn">PhoneNumber</label>
+        <input type="text" [(ngModel)]="phoneNumber" name="phoneNumber" id="pn" class="form-control"
+        placeholder="Enter your Phone">
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="form-control">
+          <div class="radio-inline">
+            <input type="radio" value="male" name="gender" [(ngModel)]="gender">
+            <label>Male</label>
+          </div>
+          <div class="radio-inline">
+            <input type="radio" value="female" name="gender" [(ngModel)]="gender">
+            <label>Female</label>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group form-control">
+        <label class="checkbox-inline">
+          <input type="checkbox" value="isActive" name="isActive" [(ngModel)]="isActive" >Is Active
+        </label>
+
+      </div>
+    <div class="form-group">
+      <label for="department" >
+        Department
+      </label>
+      <select id="department" name="department" [(ngModel)]="department" class="form-control">
+       <option value="1">Help Desk</option>
+       <option value="2">IT</option>
+       <option value="3">HR</option>
+       <option value="4">Pay Roll</option>
+      </select>
+    </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
-  <div class="panel-footer">
-  <button type="submit" class="btn btn-primary">Submit</button>
-  </div>
-</div>
 
 
 
