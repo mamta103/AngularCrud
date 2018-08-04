@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-<form #EmployeeForm="ngForm" (ngSubmit)="saveEmployee(EmployeeForm)">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<form #EmployeeForm="ngForm" (ngSubmit)="saveEmployee(EmployeeForm)" ngNativeValidate>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
@@ -7,7 +8,7 @@
     <div class="panel-body">
       <div class="form-group">
         <label for="fullName">FullName</label>
-        <input type="text" id="fullName" name="FullName" [(ngModel)]="FullName" class="form-control" placeholder="Enter your Name">
+        <input type="text" required id="fullName" name="FullName" [(ngModel)]="FullName" class="form-control" placeholder="Enter your Name">
       </div>
 
       <div class="form-group">
@@ -53,20 +54,36 @@
         <label class="checkbox-inline">
           <input type="checkbox" value="isActive" name="isActive" [(ngModel)]="isActive" >Is Active
         </label>
-
       </div>
-    <div class="form-group">
-      <label for="department" >
-        Department
-      </label>
-      <select id="department" name="department" [(ngModel)]="department" class="form-control">
-       <option value="1">Help Desk</option>
-       <option value="2">IT</option>
-       <option value="3">HR</option>
-       <option value="4">Pay Roll</option>
-      </select>
-    </div>
+            <div class="form-group">
+              <label for="department">Department</label>
+              <select id="department" class="form-control"  name="department" [(ngModel)]="department">
+                <option *ngFor = "let dept of departments" [value]="dept.id">
+                  {{dept.name}}
+                </option> 
+                
+              </select>
+            </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+         <input type="text" bsDatepicker id="dateOfBirth" name="dateOfBirth" [(ngModel)]="dateOfBirth" 
+         class="form-control" [bsConfig]="datePickerConfig">
 
+      </div>   
+       <div class="form-group">
+         <label>Photo Path</label>
+         <input type="text" id="photoPath" name="photoPath" [(ngModel)]="photoPath" class="form-control">
+
+       </div>
+       <div class="form-group" >
+       <button class="btn btn-primary" (click)="togglePhotoPreview()" type="button">{{photoPreview? "Hide ":"Show "}} Preview</button>
+       
+       </div>  
+       
+       <div class="form-group">
+         <img  [src]="photoPath" style="height: 200px; width: 200px" *ngIf="photoPreview" >
+       </div>
+     
     </div>
 
     <div class="panel-footer">
