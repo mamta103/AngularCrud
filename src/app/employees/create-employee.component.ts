@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '../../../node_modules/@angular/forms';
 import { Department} from '../models/department.model';
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
-
+import {Employees} from '../models/employee.model';
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
@@ -11,6 +11,19 @@ import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
 export class CreateEmployeeComponent implements OnInit {
   photoPreview: boolean= false;
   datePickerConfig:Partial<BsDatepickerConfig>;
+    employee: Employees= {
+      id:null,
+    name:null,
+    gender:null,
+    email: null,
+    phoneNumber: null,
+    contactPreference: null,
+    dateOfBirth: null,
+    department: null,
+    isActive: null,
+    photoPath: null
+    
+    };
   //Array of Department
   departments: Department[]= [
     {id: 1, name: "HelpDesk"},
@@ -23,10 +36,7 @@ export class CreateEmployeeComponent implements OnInit {
   constructor() {
     this.datePickerConfig = Object.assign({},
       {
-        containerClass: 'theme-dark-blue',
-        showWeekNumbers: false,
-        minDate: new Date(2018, 0, 1),
-        maxDate: new Date(2018, 11, 31)
+        containerClass: 'theme-dark-blue'
       });
     }
     togglePhotoPreview(){
@@ -34,8 +44,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
   ngOnInit() {
   }
-  saveEmployee(empForm:NgForm):void{
-    console.log(empForm.value);
+  saveEmployee(newEmployee:Employees):void{
+    console.log(newEmployee);
   }
 
 }
