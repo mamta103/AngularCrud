@@ -15,35 +15,35 @@
            Full Name is required</span>
       </div>
 
-      <div class="form-group"  [class.has-error]="email.invalid && email.touched" [class.has-success]="email.valid">
+      <div class="form-group"  [class.has-error]="email.invalid">
         <label  for="email" class="control-label">Email</label>
-        <input type="text" id="email" class="form-control"  required 
+        <input type="text" id="email" class="form-control"  [required]="contactPrefence.value == 'email'" 
         pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" #email="ngModel" [(ngModel)]="employee.Email"  name="Email"
           placeholder="Enter your Email ID">
-          <span class="help-block" *ngIf="email.errors?.required && email.touched" >Email is required!</span>
-          <span class="help-block" *ngIf="email.errors?.pattern && email.touched" >Email is Invalid!</span>
+          <span class="help-block" *ngIf="email.errors?.required" >Email is required!</span>
+          <span class="help-block" *ngIf="email.errors?.pattern" >Email is Invalid!</span>
       </div>
 
-      <div class="form-group">
-        <label>Contact Prefernce</label>
+      <div class="form-group" [class.has-error]="phoneNumber.invalid">
+        <label class="control-label" for="pn">PhoneNumber</label>
+        <input type="number" [required] = "contactPrefence.value == 'phoneNumber'" [(ngModel)]="employee.phoneNumber" #phoneNumber = "ngModel" name="phoneNumber" id="pn" class="form-control"
+        placeholder="Enter your Phone">
+        <span class="help-block" *ngIf = "phoneNumber.invalid">Phone Number ia Mandatory!</span>
+      </div>
+
+      <div class="form-group" [class.has-error]="contactPrefence.invalid && contactPrefence.touched">
+        <label class="control-label">Contact Prefernce</label>
         <div class="form-control">
-          <div class="radio-inline">
-            <input type="radio" value="email" name="contact" [(ngModel)]="employee.contact">
+          <div class="radio-inline" >
+            <input type="radio" required value="email" name="contact" [(ngModel)]="employee.contact" #contactPrefence="ngModel">
             <label>Email</label>
           </div>
           <div class="radio-inline">
-            <input type="radio" value="phonenumber" name="contact" [(ngModel)]="employee.contact">
+            <input type="radio" required value="phoneNumber" name="contact" [(ngModel)]="employee.contact" #contactPrefence="ngModel">
             <label>Phone Number</label>
           </div>
         </div>
-      </div>
-
-      <div class="form-group" [class.has-error]="phoneNumber.invalid && phoneNumber.touched"
-      [class.has-success]="phoneNumber.valid">
-        <label class="control-label" for="pn">PhoneNumber</label>
-        <input type="number" required [(ngModel)]="employee.phoneNumber" #phoneNumber = "ngModel" name="phoneNumber" id="pn" class="form-control"
-        placeholder="Enter your Phone">
-        <span class="help-block" *ngIf = "phoneNumber.invalid && phoneNumber.touched">Phone Number ia Mandatory!</span>
+        <span class="help-block" *ngIf="contactPrefence.invalid && contactPrefence.touched">Select any one! </span>
       </div>
 
       <div class="form-group" [class.has-error]="gender.invalid  && gender.touched">
@@ -66,14 +66,16 @@
           <input type="checkbox" value="isActive" name="isActive" [(ngModel)]="employee.isActive" >Is Active
         </label>
       </div>
-            <div class="form-group">
-              <label for="department">Department</label>
-              <select id="department" class="form-control"  name="department" [(ngModel)]="employee.department">
+            <div class="form-group" [class.has-error]="department.invalid && department.touched">
+              <label for="department" class="control-label">Department</label>
+              <select id="department" appSelectValidator class="form-control"  name="department" [(ngModel)]="employee.department" #department="ngModel">
+                <option ngValue = "-1" >Select Department </option>
                 <option *ngFor = "let dept of departments" [value]="dept.id">
                   {{dept.name}}
                 </option> 
                 
               </select>
+              <span class="help-block" *ngIf="department.invalid && errors?.defaultSelected">Department Required!</span>
             </div>
       <div class="form-group">
         <label for="dateOfBirth">Date of Birth</label>
