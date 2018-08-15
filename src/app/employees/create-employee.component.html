@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
-<form #EmployeeForm="ngForm" (ngSubmit)="saveEmployee(employee)" ngNativeValidate>
+<form #EmployeeForm="ngForm" (ngSubmit)="saveEmployee()" ngNativeValidate>
   <div class="panel panel-primary">
     <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
@@ -48,7 +48,7 @@
         <label class="control-label">Gender</label>
         <div class="form-control">
           <div class="radio-inline">
-            <input type="radio" value="male" name="gender" required #gender="ngModel" [(ngModel)]="employee.gender">
+            <input type="radio" value="Male" name="gender" required #gender="ngModel" [(ngModel)]="employee.gender">
             <label>Male</label>
           </div>
           <div class="radio-inline">
@@ -96,21 +96,32 @@
       <div class="form-group">
         <img [src]="employee.photoPath" style="height: 200px; width: 200px" *ngIf="photoPreview">
       </div>
- 
-    <div class="form-group" [class.has-error] = "password.errors?.required && password.touched">
-      <label for="password" class="control-label">Password</label>
-      <input type="text" id="password" name="password" [(ngModel)]="employee.password" #password="ngModel" 
-      class="form-control" required>
-       <span class="help-block" *ngIf="password.errors?.required && password.touched">Password Required!</span>
-    </div>  
-    
-  <div class="form-group" [class.has-error] = "confirmPassword.errors?.required && confirmPassword.touched">
-   <label for="confirmPassword" class="control-label">Confirm Password</label>
-   <input type="text" id="confirmPassword" name="confirmPassword" [(ngModel)]="employee.confirmPassword" #confirmPassword = "ngModel"
-   required class="form-control"> 
-   <span class="help-block" *ngIf="confirmPassword.errors?.required && confirmPassword.touched">Required Confirm Password!</span>
-  </div> 
-   
+
+      <div ngModelGroup="passwordGroup"  #passwordGroup="ngModelGroup" 
+      [class.has-error]="confirmPassword.touched && confirmPassword.invalid
+       && !confirmPassword.errors?.required">
+      <div class="form-group" 
+      [class.has-error] = "password.invalid && password.touched">
+           <label for="password" class="control-label">Password</label>
+           <input type="text" id="password" name="password" [(ngModel)]="employee.password" #password="ngModel" 
+           (input)="confirmPassword.control.updateValueAndValidity()"  class="form-control" required>
+            <span class="help-block" *ngIf="password.errors?.required && password.touched">Password Required!</span>
+         </div>  
+         
+       <div class="form-group" [class.has-error] = "confirmPassword.invalid && confirmPassword.touched">
+        <label for="confirmPassword" class="control-label">Confirm Password</label>
+        <input type="text" id="confirmPassword" appConfirmEqualValidator="password" required name="confirmPassword" [(ngModel)]="employee.confirmPassword" #confirmPassword = "ngModel"
+        required class="form-control"> 
+        <span class="help-block" *ngIf="confirmPassword.errors?.required && confirmPassword.touched">
+          Required Confirm Password!</span>
+          <span class="help-block"
+          *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
+            !confirmPassword.errors?.required">
+      Password and Confirm Password does not match
+     </span>
+       </div> 
+      </div>
+      
    </div>
     <div class="panel-footer">
       <button type="submit" class="btn btn-primary" [disabled]="EmployeeForm.invalid">Submit</button>

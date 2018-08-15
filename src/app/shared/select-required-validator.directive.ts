@@ -1,5 +1,5 @@
-import { Validator, AbstractControl, NG_VALIDATORS } from "../../../node_modules/@angular/forms";
-import { Directive, Input } from "../../../node_modules/@angular/core";
+import { Validator, AbstractControl, NG_VALIDATORS } from "@angular/forms";
+import { Directive, Input } from "@angular/core";
 
 
 @Directive({
